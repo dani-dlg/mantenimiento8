@@ -31,6 +31,26 @@ public class AvlTreeTest {
   }
 
   @Test
+  public void testInsertNodeInANullAvlTree(){
+    avlTree.insert(1);
+
+    assertFalse(avlTree.avlIsEmpty());
+  }
+
+  @Test
+  public void testInsert(){
+    String expectedValue = " | 5 | 2 | 1 | 7";
+
+    avlTree.insert(5);
+    avlTree.insert(2);
+    avlTree.insert(7);
+    avlTree.insert(1);
+    String obtainedValue = avlTree.toString();
+
+    assertEquals(expectedValue, obtainedValue);
+  }
+
+  @Test
   public void testAvlIsEmpty() throws Exception {
     assertTrue("TestAvlIsEmpty", avlTree.avlIsEmpty());
 
