@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 import java.util.Comparator;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
 
 /**
  * Created with IntelliJ IDEA. User: Antonio J. Nebro Date: 08/07/13
@@ -17,67 +17,78 @@ public class AvlTreeTest {
   AvlTree<Integer> avlTree;
   Comparator<?> comparator;
 
-  @Before
+  @BeforeEach
   public void setUp() throws Exception {
     comparator = Comparator.comparingInt((Integer o) -> o);
     avlTree = new AvlTree(comparator);
   }
 
-  @After
+  @AfterEach
   public void tearDown() throws Exception {
     avlTree = null;
     comparator = null;
   }
 
-  @Test
-  public void testInsertNodeInANullAvlTree(){
-    avlTree.insert(1);
+  @Nested
+  class InsertTest {
+    @Test
+    public void testInsertNodeInANullAvlTree(){
+      int expectedValue = 1;
 
-    assertFalse(avlTree.avlIsEmpty());
+      avlTree.insert(1);
+      int actualValue = avlTree.top.getItem();
+
+      assertFalse(avlTree.avlIsEmpty());
+      assertEquals(expectedValue, actualValue);
+    }
+
+    @Test
+    public void testInsert() {
+      String expectedValue = " | 5 | 2 | 1 | 7";
+
+      avlTree.insert(5);
+      avlTree.insert(2);
+      avlTree.insert(7);
+      avlTree.insert(1);
+      String obtainedValue = avlTree.toString();
+
+      assertEquals(expectedValue, obtainedValue);
+    }
   }
 
-  @Test
-  public void testInsert(){
-    String expectedValue = " | 5 | 2 | 1 | 7";
+  @DisplayName("Tests para el metodo delete")
+  @Nested
+  public class DeleteTest{
+    @Test
+    public void testDeleteANonExistingNode() {
+      avlTree.insert(1);
+      avlTree.insert(2);
+      avlTree.delete(3);
 
-    avlTree.insert(5);
-    avlTree.insert(2);
-    avlTree.insert(7);
-    avlTree.insert(1);
-    String obtainedValue = avlTree.toString();
+      assertEquals(" | 1 | 2", avlTree.toString());
+    }
 
-    assertEquals(expectedValue, obtainedValue);
-  }
+    @Test
+    public void testInsertAndDeleteSameItem() {
+      avlTree.insert(1);
+      avlTree.delete(1);
+      assertTrue(avlTree.avlIsEmpty());
+    }
 
-  @Test
-  public void testDeleteANonExistingNode() {
-    avlTree.insert(1);
-    avlTree.insert(2);
-    avlTree.delete(3);
+    @Test
+    public void testDeleteRootNode() {
+      avlTree.insert(2);
+      avlTree.insert(1);
+      avlTree.insert(3);
 
-    assertEquals(" | 1 | 2", avlTree.toString());
-  }
+      int previousRoot = avlTree.top.getItem();
 
-  @Test
-  public void testInsertAndDeleteSameItem() {
-    avlTree.insert(1);
-    avlTree.delete(1);
-    assertTrue(avlTree.avlIsEmpty());
-  }
+      avlTree.delete(2);
 
-  @Test
-  public void testDeleteRootNode() {
-    avlTree.insert(2);
-    avlTree.insert(1);
-    avlTree.insert(3);
-
-    int previousRoot = avlTree.top.getItem();
-
-    avlTree.delete(2);
-
-    int currentRoot = avlTree.top.getItem();
-    assertEquals(" | 3 | 1", avlTree.toString());
-    assertNotEquals(previousRoot, currentRoot);
+      int currentRoot = avlTree.top.getItem();
+      assertEquals(" | 3 | 1", avlTree.toString());
+      assertNotEquals(previousRoot, currentRoot);
+    }
   }
 
   @Test
