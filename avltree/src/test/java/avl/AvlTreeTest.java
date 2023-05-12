@@ -31,6 +31,8 @@ public class AvlTreeTest {
 
   @Nested
   class InsertTest {
+    // Este test prueba si el método insert() funciona correctamente cuando el árbol está vacío.
+    // Inserta un nodo y comprueba que no esté vacío, y que se haya insertado en top
     @Test
     public void testInsertNodeInANullAvlTree(){
       int expectedValue = 1;
@@ -42,6 +44,8 @@ public class AvlTreeTest {
       assertEquals(expectedValue, actualValue);
     }
 
+    // Este test prueba si el método insert() funciona correctamente.
+    // Debe insertar los nodos y tener el árbol predeterminado en el String expected.
     @Test
     public void testInsert() {
       String expectedValue = " | 5 | 2 | 1 | 7";
@@ -59,6 +63,7 @@ public class AvlTreeTest {
   @DisplayName("Tests para el metodo delete")
   @Nested
   public class DeleteTest{
+    // Esta prueba comprueba que no se puede borrar un nodo que no está en el árbol. El árbol deberá quedarse igual que estaba.
     @Test
     public void testDeleteANonExistingNode() {
       avlTree.insert(1);
@@ -68,6 +73,7 @@ public class AvlTreeTest {
       assertEquals(" | 1 | 2", avlTree.toString());
     }
 
+    // Esta prueba inserta y borra el mismo nodo. El árbol deberá estar vacío al final.
     @Test
     public void testInsertAndDeleteSameItem() {
       avlTree.insert(1);
@@ -75,6 +81,7 @@ public class AvlTreeTest {
       assertTrue(avlTree.avlIsEmpty());
     }
 
+    // Este test prueba si el método delete() funciona correctamente. Debe eliminar los nodos 2, 1 y 3 y tener el árbol predeterminado en el String expected.
     @Test
     public void testDeleteRootNode() {
       avlTree.insert(2);
