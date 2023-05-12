@@ -58,6 +58,7 @@ public class AvlTreeTest {
       assertEquals(expectedValue, obtainedValue);
     }
 
+    // Este test prueba si el método insert() cambia la raíz al insertar un nodo en ciertas condiciones.
     @Test
     public void testInsertChangesRoot(){
       avlTree.insert(1);
@@ -69,7 +70,7 @@ public class AvlTreeTest {
 
       assertNotEquals(previousRoot, currenRoot);
     }
-
+    // Este test prueba si el método insert() mueve el nodo menor a la izquierda.
     @Test
     public void testInsertMenorSeVaALaIzquierda(){
       avlTree.insert(3);
@@ -81,6 +82,7 @@ public class AvlTreeTest {
       assertEquals(expectedValue, actualValue);
     }
 
+    // Este test prueba si el método insert() mueve el nodo mayor a la derecha.
     @Test
     public void testInsertMayorSeVaALaDerecha(){
       avlTree.insert(3);
@@ -130,17 +132,13 @@ public class AvlTreeTest {
       assertNotEquals(previousRoot, currentRoot);
     }
 
+    // Este test prueba si el método delete() funciona correctamente. Elimina el único nodo del árbol. El árbol deberá estar vacío al final.
     @Test
     public void testDeleteFromAnEmptyTree(){
 
       avlTree.delete(2);
 
       assertEquals("", avlTree.toString());
-    }
-
-    @Test
-    public void testDeleteFromANullTree(){
-      
     }
   }
 
@@ -151,7 +149,6 @@ public class AvlTreeTest {
     avlTree.insertTop(new AvlNode(5));
     assertFalse("TestAvlIsEmpty", avlTree.avlIsEmpty());
   }
-
   @Test
   public void testInsertTop() throws Exception {
     AvlNode<Integer> node = new AvlNode(4);
