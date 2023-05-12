@@ -2,8 +2,7 @@ package avl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Comparator;
 import org.junit.After;
@@ -48,6 +47,37 @@ public class AvlTreeTest {
     String obtainedValue = avlTree.toString();
 
     assertEquals(expectedValue, obtainedValue);
+  }
+
+  @Test
+  public void testDeleteANonExistingNode() {
+    avlTree.insert(1);
+    avlTree.insert(2);
+    avlTree.delete(3);
+
+    assertEquals(" | 1 | 2", avlTree.toString());
+  }
+
+  @Test
+  public void testInsertAndDeleteSameItem() {
+    avlTree.insert(1);
+    avlTree.delete(1);
+    assertTrue(avlTree.avlIsEmpty());
+  }
+
+  @Test
+  public void testDeleteRootNode() {
+    avlTree.insert(2);
+    avlTree.insert(1);
+    avlTree.insert(3);
+
+    int previousRoot = avlTree.top.getItem();
+
+    avlTree.delete(2);
+
+    int currentRoot = avlTree.top.getItem();
+    assertEquals(" | 3 | 1", avlTree.toString());
+    assertNotEquals(previousRoot, currentRoot);
   }
 
   @Test
