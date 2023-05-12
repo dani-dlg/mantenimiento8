@@ -5,8 +5,7 @@ import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.*;
 
 import java.util.Comparator;
-import org.junit.After;
-import org.junit.Before;
+
 import org.junit.jupiter.api.*;
 
 /**
@@ -58,6 +57,40 @@ public class AvlTreeTest {
 
       assertEquals(expectedValue, obtainedValue);
     }
+
+    @Test
+    public void testInsertChangesRoot(){
+      avlTree.insert(1);
+      avlTree.insert(2);
+      int previousRoot = avlTree.top.getItem();
+
+      avlTree.insert(3);
+      int currenRoot = avlTree.top.getItem();
+
+      assertNotEquals(previousRoot, currenRoot);
+    }
+
+    @Test
+    public void testInsertMenorSeVaALaIzquierda(){
+      avlTree.insert(3);
+      int expectedValue = 1;
+
+      avlTree.insert(1);
+      int actualValue = avlTree.top.getLeft().getItem();
+
+      assertEquals(expectedValue, actualValue);
+    }
+
+    @Test
+    public void testInsertMayorSeVaALaDerecha(){
+      avlTree.insert(3);
+      int expectedValue = 5;
+
+      avlTree.insert(5);
+      int actualValue = avlTree.top.getRight().getItem();
+
+      assertEquals(expectedValue, actualValue);
+    }
   }
 
   @DisplayName("Tests para el metodo delete")
@@ -95,6 +128,19 @@ public class AvlTreeTest {
       int currentRoot = avlTree.top.getItem();
       assertEquals(" | 3 | 1", avlTree.toString());
       assertNotEquals(previousRoot, currentRoot);
+    }
+
+    @Test
+    public void testDeleteFromAnEmptyTree(){
+
+      avlTree.delete(2);
+
+      assertEquals("", avlTree.toString());
+    }
+
+    @Test
+    public void testDeleteFromANullTree(){
+      
     }
   }
 
